@@ -19,19 +19,19 @@ import numpy as np
 #Inicialização dos valores dados para n e w para 6, 8 e 10
 #6
 n_6 = np.array([-0.9324695142031520278123016, -0.6612093864662645136613996, -0.2386191860831969086305017,
-               0.2386191860831969086305017, 0.6612093864662645136613996, 0.9324695142031520278123016])
+                 0.2386191860831969086305017,  0.6612093864662645136613996,  0.9324695142031520278123016])
 w_6 = np.array([0.1713244923791703450402961, 0.3607615730481386075698335, 0.4679139345726910473898703,
-               0.4679139345726910473898703, 0.3607615730481386075698335, 0.1713244923791703450402961])
+                0.4679139345726910473898703, 0.3607615730481386075698335, 0.1713244923791703450402961])
 #8
 n_8 = np.array([-0.9602898564975362316835609, -0.7966664774136267395915539, -0.5255324099163289858177390, -0.1834346424956498049394761,
-               0.1834346424956498049394761, 0.5255324099163289858177390, 0.7966664774136267395915539, 0.9602898564975362316835609])
+                 0.1834346424956498049394761,  0.5255324099163289858177390,  0.7966664774136267395915539,  0.9602898564975362316835609])
 w_8 = np.array([0.1012285362903762591525314, 0.2223810344533744705443560, 0.3137066458778872873379622, 0.3626837833783619829651504,
-               0.3626837833783619829651504, 0.3137066458778872873379622, 0.2223810344533744705443560, 0.1012285362903762591525314])
+                0.3626837833783619829651504, 0.3137066458778872873379622, 0.2223810344533744705443560, 0.1012285362903762591525314])
 #10
 n_10 = np.array([-0.9739065285171717200779640, -0.8650633666889845107320967, -0.6794095682990244062343274, -0.4333953941292471907992659, -0.1488743389816312108848260,
-                0.1488743389816312108848260, 0.4333953941292471907992659, 0.6794095682990244062343274, 0.8650633666889845107320967, 0.9739065285171717200779640])
+                  0.1488743389816312108848260,  0.4333953941292471907992659,  0.6794095682990244062343274,  0.8650633666889845107320967,  0.9739065285171717200779640])
 w_10 = np.array([0.0666713443086881375935688, 0.1494513491505805931457763, 0.2190863625159820439955349, 0.2692667193099963550912269, 0.2955242247147528701738930,
-                0.2955242247147528701738930, 0.2692667193099963550912269, 0.2190863625159820439955349, 0.1494513491505805931457763, 0.0666713443086881375935688])
+                 0.2955242247147528701738930, 0.2692667193099963550912269, 0.2190863625159820439955349, 0.1494513491505805931457763, 0.0666713443086881375935688])
 
 #Função para o calculo do valor das integrais duplas
 def calculoIntegralDupla(a, b, n, w, c, d, f):
@@ -43,9 +43,7 @@ def calculoIntegralDupla(a, b, n, w, c, d, f):
 
     while(i < len(n)):
         somaParcial = 0
-        r1 = n[i]
-        w1 = w[i]
-        x = h1*r1 + h2
+        x = h1*n[i] + h2
         d1 = d(x)
         c1 = c(x)
         k1 = (d1 - c1)/2
@@ -53,14 +51,12 @@ def calculoIntegralDupla(a, b, n, w, c, d, f):
 
         j = 0
         while(j < len(n)):
-            r2 = n[j]
-            w2 = w[j]
-            y = k1*r2 + k2
+            y = k1*n[j] + k2
             Q = f(x, y)
-            somaParcial = somaParcial + w2*Q
+            somaParcial = somaParcial + w[j]*Q
             j += 1
 
-        soma = soma + w1*k1*somaParcial
+        soma = soma + w[i]*k1*somaParcial
         i += 1
     soma = h1*soma
     return(soma)
@@ -113,7 +109,7 @@ def expoVarQuadrado(x):
 
 #Função principal
 def main():
-    print('\nOlá! O que gostaria de fazer?')
+    print('\nOlá! O que gostaria de fazer?\n')
     rodando = True
     mode = 0
 
@@ -127,10 +123,10 @@ def main():
         mode = int(input('\nDigite o numero do modo de operação desejado: '))
 
         if (mode == 1):
-            print('Opção selecionada:')
+            print('\nOpção selecionada:')
             print('1) Cálculo dos volumes do cubo cujas arestas tem comprimento 1 e do tetraedro com vértices (0, 0, 0), (1, 0, 0), (0, 1, 0) e (0, 0, 1)\n')
            
-            print('Valores para n=6')
+            print('\nValores para n=6')
             print('Volume do Cubo: ',calculoIntegralDupla(0, 1, n_6, w_6, zero, um, um))
             print('Volume do Tetraedro',calculoIntegralDupla(0, 1, n_6, w_6, zero, yTetraedro, zTetraedro),'\n')
 
@@ -143,10 +139,10 @@ def main():
             print('Volume do Tetraedro',calculoIntegralDupla(0, 1, n_10, w_10, zero, yTetraedro, zTetraedro),'\n\n')
         
         elif (mode == 2):
-            print('Opção selecionada:')
+            print('\nOpção selecionada:')
             print('2) Cálculo da área A da região no primeiro quadrante limitada pelos eixos e pela curva y = 1 - x^2')
           
-            print('Valores para n=6')
+            print('\nValores para n=6')
             print('Área da região (cálculo com a primeira integral): ',calculoIntegralDupla(0, 1, n_6, w_6, zero, parabolax, um))
             print('Área da região (cálculo com a segunda integral): ',calculoIntegralDupla(0, 1, n_6, w_6, zero, parabolay, um),'\n')
 
@@ -159,10 +155,10 @@ def main():
             print('Área da região (cálculo com a segunda integral): ',calculoIntegralDupla(0, 1, n_10, w_10, zero, parabolay, um),'\n\n')
         
         elif (mode == 3):
-            print('Opção selecionada:')
+            print('\nOpção selecionada:')
             print('3) Cálculo da área e volume abaixo da superfície descrita por z = e^(x/y), 0.1 <= x <= 0.5, x^3 <= y <= x^2 ')
             
-            print('Valores para n=6')
+            print('\nValores para n=6')
             print('Volume calculado: ',calculoIntegralDupla(0.1, 0.5, n_6, w_6, y0Exp, y1Exp, zExp))
             print('Área calculada: ',calculoIntegralDupla(0.1, 0.5, n_6, w_6, y0Exp, y1Exp, zExpArea),'\n')
 
@@ -176,9 +172,9 @@ def main():
             
         
         elif (mode == 4):
-            print('Opção selecionada:')
+            print('\nOpção selecionada:')
             print('4) Cálculo do volume da calota esférica de altura 1/4 da esfera de raio 1 e o do sólido obtido da rotação da região, em torno do eixo y, delimitada por x = 0, x = e^(-y^2), y = -1 e y = 1')            
-            print('Valores para n=6')
+            print('\nValores para n=6')
             print('Volume da Calota: ',2*pi*calculoIntegralDupla(0, sqrt(7)/4, n_6, w_6, zeroSeteCinco, raizparabola, xlinear))
             print('Volume do Sólido: ',2*pi*calculoIntegralDupla(-1, 1, n_6, w_6, zero, expoVarQuadrado, ylinear),'\n')
 
@@ -193,13 +189,15 @@ def main():
             
         
         elif (mode == 5):
-            print('Opção selecionada:')
+            print('\nOpção selecionada:')
             print('5) Finalizar o programa')
             
-            print("Programa finalizado.", "\n")
+            print("\nPrograma finalizado.", "\n")
             rodando = False
         
         else:
             print('Modo de operação inválido!')
+
+        print("\n###############################################\n")
 
 main() #god god
