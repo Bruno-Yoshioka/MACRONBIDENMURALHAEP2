@@ -66,7 +66,7 @@ def parabolax(x):
     return 1 - x**2
 #Função auxiliar para retornar sqrt(1-y)
 def parabolay(y):
-    return (1 - y)**0.5
+    return sqrt(1 - y)
 #Função auxiliar para retornar sqrt(1-x^2)
 def raizparabola(x):
     return sqrt(parabolax(x))
@@ -87,10 +87,10 @@ def ylinear(x, y):
     return y
 #Função auxiliar para retornar 1-x
 def yTetraedro(x):
-    return -1*x + 1
+    return 1-x
 #Função auxiliar para retornar 1-x-y
 def zTetraedro(x, y):
-    return 1 - x - y
+    return 1-x-y
 #Função auxiliar para retornar x^3
 def y0Exp(x):
     return x**3
@@ -102,7 +102,7 @@ def zExp(x, y):
     return e**(y/x)
 #Função auxiliar para retornar sqrt(((e^(y/x))/x)^2 + ((y*e^(y/x))/(x^2))^2 + 1)
 def zExpArea(x, y):
-    return ((e**(y/x) / x)**2 + (y*e**(y/x) / x**2)**2 + 1)**0.5
+    return sqrt(((zExp(x,y)/x)**2) + (y*zExp(x,y)/(x**2))**2 + 1)
 #Função auxiliar para retornar e^(-x^2)
 def expoVarQuadrado(x):
     return (e**(-1*x**2))
@@ -192,12 +192,12 @@ def main():
             print('\nOpção selecionada:')
             print('5) Finalizar o programa')
             
-            print("\nPrograma finalizado.", "\n")
+            print('\nPrograma finalizado')
             rodando = False
         
         else:
             print('Modo de operação inválido!')
 
-        print("\n###############################################\n")
+        print('\n###############################################\n')
 
-main() #god god
+main()
